@@ -37,10 +37,5 @@ describe("Given I am connected as an employee", () => {
       const datesSorted = [...dates].sort(antiChrono)
       expect(dates).toEqual(datesSorted)
     })
-
-    it("Check if the modal to view the image works", () => {
-      document.body.innerHTML = BillsUI({ data: bills }) + row;
-      console.log(bills);
-    })
   })
 })
