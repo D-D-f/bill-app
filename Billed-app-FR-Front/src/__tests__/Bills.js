@@ -3,17 +3,18 @@
  */
 
 import {screen, waitFor} from "@testing-library/dom"
-import BillsUI from "../views/BillsUI.js"
+import BillsUI, {row} from "../views/BillsUI.js"
 import { bills } from "../fixtures/bills.js"
 import { ROUTES_PATH} from "../constants/routes.js";
 import {localStorageMock} from "../__mocks__/localStorage.js";
 import '@testing-library/jest-dom/extend-expect.js';
 import router from "../app/Router.js";
+import Actions from "../views/Actions.js";
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
-    test("Then bill icon in vertical layout should be highlighted", async () => {
 
+    it("Then bill icon in vertical layout should be highlighted", async () => {
       Object.defineProperty(window, 'localStorage', { value: localStorageMock })
       window.localStorage.setItem('user', JSON.stringify({
         type: 'Employee'
@@ -27,12 +28,19 @@ describe("Given I am connected as an employee", () => {
       const windowIcon = screen.getByTestId('icon-window')
       expect(windowIcon).toHaveClass('active-icon')
     })
-    test("Then bills should be ordered from earliest to latest", () => {
+
+    it("Then bills should be ordered from earliest to latest", () => {
       document.body.innerHTML = BillsUI({ data: bills })
       const dates = screen.getAllByText(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/i).map(a => a.innerHTML)
       const antiChrono = (a, b) => ((a > b) ? 1 : +1)
+      console.log("cou")
       const datesSorted = [...dates].sort(antiChrono)
       expect(dates).toEqual(datesSorted)
+    })
+
+    it("Check if the modal to view the image works", () => {
+      document.body.innerHTML = BillsUI({ data: bills }) + row;
+      console.log(bills);
     })
   })
 })
