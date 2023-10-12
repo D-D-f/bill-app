@@ -75,7 +75,5 @@ describe("Given I am connected as an employee", () => {
       const modale = document.getElementById("modaleFile");
       expect(modale).toBeTruthy();
     });
-
-    it("Then he click on the new note button you should be directed to another page", () => {});
   });
 });
