@@ -102,7 +102,5 @@ describe("Given I am connected as an employee", () => {
       const formNewNote = document.querySelector(".form-newbill-container");
       expect(formNewNote).toBeTruthy();
     });
-
-    it("", () => {});
   });
 });
