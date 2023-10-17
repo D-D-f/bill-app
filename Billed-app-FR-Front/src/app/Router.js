@@ -33,6 +33,7 @@ export default () => {
       divIcon1.classList.add("active-icon");
       divIcon2.classList.remove("active-icon");
       const bills = new Bills({ document, onNavigate, store, localStorage });
+      console.log(localStorage);
       bills
         .getBills()
         .then((data) => {

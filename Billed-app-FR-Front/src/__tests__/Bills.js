@@ -11,6 +11,7 @@ import { localStorageMock } from "../__mocks__/localStorage.js";
 import "@testing-library/jest-dom/extend-expect.js";
 import router from "../app/Router.js";
 import Bills from "../containers/Bills.js";
+import mockStore from "../__mocks__/store";
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
@@ -46,6 +47,36 @@ describe("Given I am connected as an employee", () => {
       expect(dates).toEqual(datesSorted);
     });
 
+    it("fetch bills from mock API GET", () => {
+      const localStorage = {
+        value: localStorageMock,
+      };
+
+      window.localStorage.setItem(
+        "user",
+        JSON.stringify({
+          type: "Employee",
+        })
+      );
+      const root = document.createElement("div");
+      root.setAttribute("id", "root");
+      document.body.append(root);
+      const pathname = ROUTES_PATH["Bills"];
+      root.innerHTML = ROUTES({ pathname: pathname, loading: true });
+      const bills = new Bills({
+        document,
+        onNavigate,
+        store: mockStore,
+        localStorage,
+      });
+      bills.getBills().then((data) => {
+        root.innerHTML = BillsUI({ data });
+        expect(document.querySelector("tbody").rows.length).toBeGreaterThan(0);
+      });
+    });
+  });
+
+  describe("Then I sould be sent to New bill page", () => {
     it("Then he clicks on the icon the modal with the image should open", () => {
       const html = BillsUI({
         data: bills,
@@ -61,7 +92,6 @@ describe("Given I am connected as an employee", () => {
         store,
         localStorage: window.localStorage,
       });
-      // Create Modal
       $.fn.modal = jest.fn();
       const icon = screen.getAllByTestId("icon-eye")[0];
 
@@ -69,7 +99,6 @@ describe("Given I am connected as an employee", () => {
         billsList.handleClickIconEye(icon)
       );
       icon.addEventListener("click", handleClickIconEye);
-      // EventHandler
       fireEvent.click(icon);
       expect(handleClickIconEye).toHaveBeenCalled();
       const modale = document.getElementById("modaleFile");
