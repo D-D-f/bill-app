@@ -47,6 +47,33 @@ describe("Given I am connected as an employee", () => {
       expect(dates).toEqual(datesSorted);
     });
 
+    it("Then he clicks of the new note button you should be directed to another page", () => {
+      const html = BillsUI({ data: bills });
+      document.body.innerHTML = html;
+      const store = null;
+      const onNavigate = (pathname) => {
+        document.body.innerHTML = ROUTES({ pathname });
+      };
+      const billsList = new Bills({
+        document,
+        onNavigate,
+        store,
+        localStorage: window.localStorage,
+      });
+      $.fn.page = jest.fn();
+      const btnNewNote = screen.getAllByTestId("btn-new-bill")[0];
+
+      const handleClickNewBill = jest.fn(() => {
+        billsList.handleClickNewBill(btnNewNote);
+      });
+
+      btnNewNote.addEventListener("click", handleClickNewBill);
+      fireEvent.click(btnNewNote);
+      expect(handleClickNewBill).toHaveBeenCalled();
+      const formNewNote = document.querySelector(".form-newbill-container");
+      expect(formNewNote).toBeTruthy();
+    });
+
     it("fetch bills from mock API GET", () => {
       const localStorage = {
         value: localStorageMock,
@@ -103,33 +130,6 @@ describe("Given I am connected as an employee", () => {
       expect(handleClickIconEye).toHaveBeenCalled();
       const modale = document.getElementById("modaleFile");
       expect(modale).toBeTruthy();
-    });
-
-    it("Then he clicks of the new note button you should be directed to another page", () => {
-      const html = BillsUI({ data: bills });
-      document.body.innerHTML = html;
-      const store = null;
-      const onNavigate = (pathname) => {
-        document.body.innerHTML = ROUTES({ pathname });
-      };
-      const billsList = new Bills({
-        document,
-        onNavigate,
-        store,
-        localStorage: window.localStorage,
-      });
-      $.fn.page = jest.fn();
-      const btnNewNote = screen.getAllByTestId("btn-new-bill")[0];
-
-      const handleClickNewBill = jest.fn(() => {
-        billsList.handleClickNewBill(btnNewNote);
-      });
-
-      btnNewNote.addEventListener("click", handleClickNewBill);
-      fireEvent.click(btnNewNote);
-      expect(handleClickNewBill).toHaveBeenCalled();
-      const formNewNote = document.querySelector(".form-newbill-container");
-      expect(formNewNote).toBeTruthy();
     });
   });
 });
