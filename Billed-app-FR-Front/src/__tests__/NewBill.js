@@ -14,7 +14,7 @@ import userEvent from "@testing-library/user-event";
 import mockStore from "../__mocks__/store";
 jest.mock("../app/store", () => mockStore);
 import router from "../app/Router.js";
-
+// verif test
 describe("Given I am connected as an employee", () => {
   describe("When I am on NewBill Page", () => {
     it("Then mail icon in vertical layout should be highlighted", async () => {
