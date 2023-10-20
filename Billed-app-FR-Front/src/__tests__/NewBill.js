@@ -40,7 +40,7 @@ describe("Given I am connected as an employee", () => {
       expect(iconActivated).toBeTruthy();
     });
 
-    test("Then the input file should display the file name", () => {
+    it("Then the input file should display the file name", () => {
       const html = NewBillUI();
       document.body.innerHTML = html;
       const onNavigate = (pathname) => {
@@ -68,7 +68,7 @@ describe("Given I am connected as an employee", () => {
       expect(input.files[0].name).toBe("image.png");
     });
 
-    test("Then a bill is created", () => {
+    it("Then a bill is created", () => {
       const html = NewBillUI();
       document.body.innerHTML = html;
       const onNavigate = (pathname) => {
@@ -113,7 +113,7 @@ describe("Given I am a user connected as Employee", () => {
       jest.restoreAllMocks();
     });
 
-    test("create a new bills from mock API POST", async () => {
+    it("create a new bills from mock API POST", async () => {
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({
           pathname,
@@ -221,14 +221,14 @@ describe("Given I am a user connected as Employee", () => {
     });
 
     describe("When API returns an error", () => {
-      test("Then it fails with a 404 message error", async () => {
+      it("Then it fails with a 404 message error", async () => {
         const html = BillsUI({ error: "Erreur 404" });
         document.body.innerHTML = html;
         const message = await screen.getByText(/Erreur 404/);
         expect(message).toBeTruthy();
       });
 
-      test("Then it fails with a 500 message error", async () => {
+      it("Then it fails with a 500 message error", async () => {
         const html = BillsUI({ error: "Erreur 500" });
         document.body.innerHTML = html;
         const message = await screen.getByText(/Erreur 500/);
