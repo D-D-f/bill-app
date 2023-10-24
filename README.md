@@ -1,11 +1,10 @@
 # Bill-App
 
-> Projet 9 - Débuggez et testez un SaaS RH
-
 <p align="center">
   <img src="https://user.oc-static.com/upload/2020/08/14/1597396368627_image2.png">
 </p>
->
+
+> Projet 9 - Débuggez et testez un SaaS RH
 
 ## Contexte
 
