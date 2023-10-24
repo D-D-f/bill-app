@@ -21,7 +21,7 @@ Malheureusement pour Billed, Garance, une collègue de la feature team “note d
 
 <p align="center">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=css,github,html,js, jest" />
+    <img src="https://skillicons.dev/icons?i=css,github,html,js,jest" />
   </a>
 </p>
 
