@@ -2,6 +2,7 @@ import VerticalLayout from "./VerticalLayout.js";
 import ErrorPage from "./ErrorPage.js";
 import LoadingPage from "./LoadingPage.js";
 import Actions from "./Actions.js";
+import { bills } from "../fixtures/bills.js";
 
 const row = (bill) => {
   return `
@@ -16,6 +17,14 @@ const row = (bill) => {
       </td>
     </tr>
     `;
+};
+
+const comparationDate = (a, b) => {
+  const dateA = new Date(a.date);
+  const dateB = new Date(b.date);
+  if (dateA > dateB) return -1;
+  if (dateA < dateB) return 1;
+  return 0;
 };
 
 const rows = (data) => {
@@ -46,6 +55,8 @@ export default ({ data: bills, loading, error }) => {
     return ErrorPage(error);
   }
 
+  const displayElements = bills.sort(comparationDate);
+
   return `
     <div class='layout'>
       ${VerticalLayout(120)}
@@ -59,7 +70,7 @@ export default ({ data: bills, loading, error }) => {
           <thead>
               <tr>
                 <th>Type</th>
-                <th>Nom</th>
+                <th>date</th>
                 <th>Date</th>
                 <th>Montant</th>
                 <th>Statut</th>
@@ -67,7 +78,7 @@ export default ({ data: bills, loading, error }) => {
               </tr>
           </thead>
           <tbody data-testid="tbody">
-            ${rows(bills)}
+            ${rows(displayElements)}
           </tbody>
           </table>
         </div>
